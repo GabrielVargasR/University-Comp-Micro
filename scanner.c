@@ -74,3 +74,5 @@ token scanner(void)
 		}
 	}
 }
+
+int main(){printf("hello");return 0;}

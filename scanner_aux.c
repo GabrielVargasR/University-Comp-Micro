@@ -41,5 +41,3 @@ void lexical_error(char c)
 	exit(1); //TODO: revisar exit codes
 };
 
-int main(){return 0;}
-
