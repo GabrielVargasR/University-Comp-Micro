@@ -59,20 +59,19 @@ token scanner(void)
 				lexical_error(in_char);
 			}
 		} else if (in_char == '-') {
-			/* Check for comment or Minusop*/
+			/* Check for comment or MINUSOP*/
 			c = getchar();
 			if (c == '-') {
 				do {
 					in_char = getchar();
 				} while (in_char != '\n');
 			} else {
-				ungetc(c, stdin); // regresa el char que acaba de leer (que no era '-' a stdin)
+				ungetc(c, stdin); // returns el char que acaba de leer (que no era '-' a stdin)
 				return MINUSOP;
 			}
 		} else {
 			lexical_error(in_char);
 		}
 	}
+	// Warning can be removed with a return here
 }
-
-int main(){printf("hello");return 0;}
