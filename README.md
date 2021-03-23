@@ -3,9 +3,6 @@ Simple Micro compiler for ARM based on chapter 2 of "Crafting a Compiler with C"
 
 # TODOs
 - funciones pequeñas:
-	- Gabriel:
-		- match (parser)
-		- next\_token (parser)
 	- Kevin:
 		- syntax\_error (parser)
 		- lookup (para symbol table)

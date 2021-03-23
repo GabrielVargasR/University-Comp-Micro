@@ -3,5 +3,6 @@
 
 #include "tokens.h"
 token scanner(void);
+void set_file(char *path);
 
 #endif

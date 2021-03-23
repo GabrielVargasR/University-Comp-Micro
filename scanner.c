@@ -3,16 +3,19 @@
 #include "headers/scanner_aux.h"
 #include "headers/tokens.h"
 
+FILE *file;
+
 token scanner(void)
 {
 	int in_char, c;
 
 	clear_buffer();
-	if (feof(stdin)) {
+	if (feof(file)) {
+	    fclose(file);
 		return SCANEOF;
 	}
 
-	while ((in_char = getchar()) != EOF) {
+	while ((in_char = fgetc(file)) != EOF) {
 		if (isspace(in_char)) {
 			continue; /* do nothing */
 		}
@@ -23,10 +26,11 @@ token scanner(void)
 			 *				 | ID UNDERSCORE
 			 */
 			buffer_char(in_char);
-			for (c = getchar(); isalnum(c) || c == '_'; c = getchar()) {
+			for (c = fgetc(file); isalnum(c) || c == '_'; c = fgetc(file)) {
 				buffer_char(c);
 			}
-			ungetc(c, stdin); // para no perder el que se acaba de leer que no es alnum
+			ungetc(c, file); // para no perder el que se acaba de leer que no es alnum
+			file = file;
 			return check_reserved();
 		} else if (isdigit(in_char)) {
 			/*
@@ -34,10 +38,10 @@ token scanner(void)
 			 *				  INTLITERAL DIGIT
 			 */
 			buffer_char(c);
-			for (c = getchar(); isdigit(c); c = getchar()){
+			for (c = fgetc(file); isdigit(c); c = fgetc(file)){
 				buffer_char(c);
 			}
-			ungetc(c, stdin);
+			ungetc(c, file);
 			return INTLITERAL;
 		} else if (in_char == '(') {
 			return LPAREN;
@@ -51,22 +55,22 @@ token scanner(void)
 			return PLUSOP;
 		} else if (in_char == ':') {
 			/*Looking for ':=' */
-			c = getchar();
+			c = fgetc(file);
 			if (c == '=') {
 				return ASSIGNOP;
 			} else {
-				ungetc(c, stdin);
+				ungetc(c, file);
 				lexical_error(in_char);
 			}
 		} else if (in_char == '-') {
 			/* Check for comment or MINUSOP*/
-			c = getchar();
+			c = fgetc(file);
 			if (c == '-') {
 				do {
-					in_char = getchar();
+					in_char = fgetc(file);
 				} while (in_char != '\n');
 			} else {
-				ungetc(c, stdin); // returns el char que acaba de leer (que no era '-' a stdin)
+				ungetc(c, file); // returns el char que acaba de leer (que no era '-' a stdin)
 				return MINUSOP;
 			}
 		} else {
@@ -74,4 +78,9 @@ token scanner(void)
 		}
 	}
 	// Warning can be removed with a return here
-}
+};
+
+void set_file(char *path)
+{
+    file = fopen(path, "r");
+};

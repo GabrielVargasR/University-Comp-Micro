@@ -1,20 +1,14 @@
-#include <stdio.h>
 #include <stdbool.h>
 #include "headers/scanner.h"
 #include "headers/parser.h"
 #include "headers/parser_aux.h"
 
-int main()
-{
-    printf("hello world\n");
-    return 0;
-}
-
 void system_goal(void)
 {
     /* 14. <system goal> -> <program> SCANEOF */
+    init(); //queue for parser_aux
     program();
-    match(SCANEOF); // TODO Impl
+    match(SCANEOF);
 }
 
 void program(void)
@@ -101,6 +95,8 @@ void expression(void)
 void expr_list(void)
 {
     /* 7. <expr list> -> <expression> {, <expression>} */
+    expression();
+
     while (next_token() == COMMA) {
         match(COMMA);
         expression();
