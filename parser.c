@@ -1,14 +1,7 @@
-#include <stdio.h>
 #include <stdbool.h>
 #include "headers/scanner.h"
 #include "headers/parser.h"
 #include "headers/parser_aux.h"
-
-int main()
-{
-    printf("todo bien");
-    return 0;
-}
 
 void system_goal(void)
 {
