@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "headers/scanner.h"
-#include "headers/scanner_aux.h" // TODO eliminar este import
 #include "headers/parser.h"
 #include "headers/parser_aux.h"
 
 int main()
 {
-
+    printf("todo bien");
     return 0;
 }
 
