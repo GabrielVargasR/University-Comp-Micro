@@ -4,16 +4,23 @@
 #include "headers/tokens.h"
 #include "headers/scanner_aux.h"
 
-char token_buffer[MAX_ID_LEN];
+char token_buffer[MAX_ID_LEN] = {};
+int token_buffer_index = 0; // current index for token_buffer
 
 void clear_buffer()
 {
-	printf("clear buffer\n");
+    for (int i = 0; i < MAX_ID_LEN; i++){
+        token_buffer[i] = '\0';
+    };
+
+    token_buffer_index = 0;
 };
 
 void buffer_char(char c)
 {
-	printf("buffer char %c\n", c);
+    token_buffer[token_buffer_index] = c;
+    token_buffer_index++;
+    if (token_buffer_index > MAX_ID_LEN) lexical_error(c);
 };
 
 token check_reserved()
