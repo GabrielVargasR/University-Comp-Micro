@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
 #include <string.h>
+#include "headers/scanner.h"
 #include "headers/parser.h"
 #define SOURCE_CODE_EXTENSION "micro"
 
@@ -12,10 +14,10 @@ int main(int argc, char *argv[])
     if (argc == 2) {
         // printf("%s\n", argv[1]);
         if (valid_file_exists(argv[1])){
-            // open file
+            set_file(argv[1]);
         } else {
             printf("The specified file was not found or was not a .micro file");
-            return 1;
+            exit(1);
         }
     } else {
         printf("\nExpected (1) argument, got (%d)\n", argc-1);
