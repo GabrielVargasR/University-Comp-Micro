@@ -30,6 +30,7 @@ token scanner(void)
 				buffer_char(c);
 			}
 			ungetc(c, file); // para no perder el que se acaba de leer que no es alnum
+			file = file;
 			return check_reserved();
 		} else if (isdigit(in_char)) {
 			/*

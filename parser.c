@@ -6,8 +6,9 @@
 void system_goal(void)
 {
     /* 14. <system goal> -> <program> SCANEOF */
+    init(); //queue for parser_aux
     program();
-    match(SCANEOF); // TODO Impl
+    match(SCANEOF);
 }
 
 void program(void)
@@ -94,6 +95,8 @@ void expression(void)
 void expr_list(void)
 {
     /* 7. <expr list> -> <expression> {, <expression>} */
+    expression();
+
     while (next_token() == COMMA) {
         match(COMMA);
         expression();
