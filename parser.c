@@ -2,6 +2,7 @@
 #include "headers/scanner.h"
 #include "headers/parser.h"
 #include "headers/parser_aux.h"
+#include "headers/records.h"
 
 void system_goal(void)
 {
