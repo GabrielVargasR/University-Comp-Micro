@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "headers/records.h"
+#include "headers/generator.h"
 
 // TODO: change parameter names
 // TODO: define generate function well
