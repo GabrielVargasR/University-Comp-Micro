@@ -6,7 +6,7 @@ Simple Micro compiler for ARM based on chapter 2 of "Crafting a Compiler with C"
 2. check CMakeLists.txt and make sure cmake version is compatible (cmake --version)
 3. create directory for build: `<mkdir cmake-build-debug>`
 
-######Compilation steps:
+###### Compilation steps:
 
 `<cmake cmake-build-debug . >`
 
