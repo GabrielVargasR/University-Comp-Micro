@@ -166,5 +166,5 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/12206-codestream
 .idea/codestream.xml
 
-CMakeLists.txt
+# CMakeLists.txt
 # End of https://www.toptal.com/developers/gitignore/api/clion
