@@ -4,8 +4,10 @@ Simple Micro compiler for ARM based on chapter 2 of "Crafting a Compiler with C"
 # Instructions
 1. sudo apt install cmake
 2. check CMakeLists.txt and make sure cmake version is compatible (cmake --version)
-3. create directory for build: `<mkdir cmake-build-debug>` 
+3. create directory for build: `<mkdir cmake-build-debug>`
+
 ######Compilation steps:
+
 `<cmake cmake-build-debug . >`
 
 `<cmake --build cmake-build-debug >`
@@ -23,7 +25,7 @@ Simple Micro compiler for ARM based on chapter 2 of "Crafting a Compiler with C"
 		- enter (para symbol table)
 		- generate (action rutines)
 		- extract (action rutines)
-	
+
 - adaptar funciones del parser (Gabriel)
 - adaptar action rutines para generar ARM (Kevin)
 - agregar if (pendiente)
