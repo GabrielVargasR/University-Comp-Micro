@@ -2,6 +2,8 @@
 #include "headers/scanner.h"
 #include "headers/parser.h"
 #include "headers/parser_aux.h"
+#include "headers/records.h"
+#include "headers/action_routines.h"
 
 void system_goal(void)
 {
@@ -11,9 +13,18 @@ void system_goal(void)
     match(SCANEOF);
 }
 
+void old_program(void)
+{
+    /* 1. <program> -> BEGIN <statement list> END */
+    match(BEGIN);
+    statement_list();
+    match(END);
+}
+
 void program(void)
 {
     /* 1. <program> -> BEGIN <statement list> END */
+    start();
     match(BEGIN);
     statement_list();
     match(END);
