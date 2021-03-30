@@ -2,28 +2,8 @@
 #include <string.h>
 #include "headers/records.h"
 #include "headers/generator.h"
-#include "headers/symbol_table.h"
 #include "headers/parser_aux.h"
-
-void check_id(string s)
-{
-    if (! lookup(s)){
-        enter(s);
-        generate("Declare", s, "Integer", "");
-    }
-}
-
-
-char *get_temp(void)
-{
-    static int max_temp = 0;
-    static char tempname[MAX_ID_LEN];
-
-    max_temp++;
-    sprintf(tempname, "Temp&%d", max_temp);
-    check_id(tempname);
-    return tempname;
-}
+#include "headers/ids.h"
 
 void start(void)
 {
@@ -95,7 +75,7 @@ expr_rec process_literal(void)
 
     expr_rec t;
     t.kind = LITERALEXPR;
-    /*(void)*/ sscanf(token_buffer, "%d", & t.val); // lee todo el número en el buffer y lo deja en t.val
+    /*(void)*/ sscanf(token_buffer, "%d", & t.val); // lee el número completo en el buffer y lo deja en t.val
     return t;
 }
 
