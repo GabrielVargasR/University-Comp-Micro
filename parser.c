@@ -7,29 +7,23 @@
 
 void system_goal(void)
 {
-    /* 14. <system goal> -> <program> SCANEOF */
+    /* 15. <system goal> -> <program> SCANEOF #finish */
     init(); //queue for parser_aux
     program();
     match(SCANEOF);
-}
-
-void old_program(void)
-{
-    /* 1. <program> -> BEGIN <statement list> END */
-    match(BEGIN);
-    statement_list();
-    match(END);
+    finish(); //action routine
 }
 
 void program(void)
 {
-    /* 1. <program> -> BEGIN <statement list> END */
-    start();
+    /* 1. <program> -> #start BEGIN <statement list> END */
+    start(); //action routine
     match(BEGIN);
     statement_list();
     match(END);
 }
 
+// TODO: update to include action symbols
 void statement_list(void)
 {
     /* 2. <statement list> -> <statement> {<statement>} */
@@ -47,6 +41,7 @@ void statement_list(void)
     }
 }
 
+// TODO: update to include action symbols
 void statement(void)
 {
     token tok = next_token();
@@ -81,6 +76,7 @@ void statement(void)
     }
 }
 
+// TODO: update to include action symbols
 void id_list(void)
 {
     /* 6. <id list> -> ID {, ID} */
@@ -92,6 +88,7 @@ void id_list(void)
     }
 }
 
+// TODO: update to include action symbols
 void expression(void)
 {
     token t;
@@ -103,6 +100,7 @@ void expression(void)
     }
 }
 
+// TODO: update to include action symbols
 void expr_list(void)
 {
     /* 7. <expr list> -> <expression> {, <expression>} */
@@ -114,6 +112,7 @@ void expr_list(void)
     }
 }
 
+// TODO: update to include action symbols
 void add_op(void)
 {
     token tok = next_token();
@@ -126,6 +125,7 @@ void add_op(void)
     }
 }
 
+// TODO: update to include action symbols
 void primary(void)
 {
     token tok = next_token();

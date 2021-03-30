@@ -8,6 +8,8 @@
 void start(void)
 {
     // No semantic initializations needed
+    // TODO: eliminate or modify if needed
+    generate("Start", "", "", "");
 }
 
 void finish(void)

@@ -19,15 +19,15 @@ token get_next_token();
 queue *current_tokens;
 
 void print_token(token t); // TODO: borrar
-
 token current_token;
 
 token next_token()
 {
+    // if the queue is empty, a token needs to be added to the queue by calling the scanner
     if (current_tokens->size == 0) {
         push(scanner());
     }
-    return current_tokens->head->tok;
+    return current_tokens->head->tok; //returns the head of the queue without removing it from the queue (no pop)
 };
 
 void syntax_error(token t)
@@ -39,11 +39,15 @@ void syntax_error(token t)
 
 void match(token t)
 {
+    // if the queue is empty, a token needs to be added to the queue by calling the scanner
     if (current_tokens->size == 0) {
         push(scanner());
     }
 
+    // gets the element at the head of the queue and removes it from the queue
     current_token = get_next_token();
+
+    // if t is not of the same type as the current type, the code has a syntax error
     if (t != current_token){
         // TODO: delete prints
         print_token(t);
@@ -52,8 +56,7 @@ void match(token t)
         syntax_error(t);
     } else {
         // TODO: delete else statement. This is just for testing
-        print_token(t);
-        printf("\n");
+//        print_token(t);
     }
 };
 
@@ -97,7 +100,7 @@ void init()
     current_tokens->size = 0;
 };
 
-// TODO: evaluate if this should be kept for use of syntar_error
+// TODO: evaluate if this should be kept for use of syntax_error
 void print_token(token t)
 {
     switch(t) {
