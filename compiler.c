@@ -20,14 +20,19 @@ int main()
     exp2->kind = LITERALEXPR;
     exp2->val = 532;
 
-    printf("%s %d \n", extract_expr(exp), extract_expr(exp2));
+    string *s;
+    s = malloc(sizeof(string));
+    sprintf((char *) s, "%d",exp2->val);
+
+    printf("%s", s);
+
+//    printf("%s %d \n", typeof(5));
 }
 */
 ///*
 int main(int argc, char *argv[])
 {
     if (argc == 2) {
-        // printf("%s\n", argv[1]);
         if (valid_file_exists(argv[1])){
             set_file(argv[1]); // sets file for the scanner
             system_goal();

@@ -1,14 +1,33 @@
 #include "headers/records.h"
-int extract_op(op_rec op)
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+string * extract_op(op_rec * op)
 {
-    return op.operator;
+    string * str;
+    str = malloc(sizeof(string));
+
+    switch (op->operator) {
+        case PLUS:
+            strcpy(str, "Add");
+            return str;
+        case MINUS:
+            strcpy(str, "Sub");
+            return str;
+        default:
+            break;
+    }
 }
 
+//TODO: fix return type issue
 string * extract_expr(expr_rec * expr)
 {
+    string *str;
     switch (expr->kind) {
         case LITERALEXPR:
-            return (string *) expr->val;
+            str = malloc(sizeof(string));
+            sprintf(str, "%d", expr->val);
+            return str;
         case IDEXPR:
         case TEMPEXPR:
         default:

@@ -17,6 +17,6 @@ typedef struct expression {
     };
 } expr_rec;
 
-int extract_op();
+string * extract_op();
 string * extract_expr();
 #endif

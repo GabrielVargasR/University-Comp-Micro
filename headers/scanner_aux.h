@@ -8,5 +8,6 @@ void clear_buffer();
 void buffer_char(char c);
 token check_reserved();
 void lexical_error(char c);
+void print_buffer(); //TODO: delete
 
 #endif

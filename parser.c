@@ -97,16 +97,20 @@ void id_list(void)
 
 void expression(expr_rec *result)
 {
-    expr_rec left_operand, right_operand;
+    expr_rec * left_operand, * right_operand;
     op_rec * op;
 
-    primary(& left_operand); //TODO: edit primary
+    left_operand = malloc(sizeof(expr_rec));
+    right_operand = malloc(sizeof(expr_rec));
+    op = malloc(sizeof(op_rec));
+
+    primary(left_operand); //TODO: edit primary
     while (next_token() == PLUSOP || next_token() == MINUSOP) {
         add_op(op); // TODO: edit add_op
-        primary(& right_operand);
-        left_operand = gen_infix(left_operand, *op, right_operand); //TODO: change pointer/value for op
+        primary(right_operand);
+        *left_operand = gen_infix(*left_operand, *op, *right_operand); //TODO: change pointer/value
     }
-    *result = left_operand;
+    *result = *left_operand;
 }
 
 // TODO: update to include action symbols
@@ -123,39 +127,41 @@ void expr_list(void)
 }
 
 // TODO: update to include action symbols
-void add_op(void)
+void add_op(op_rec * op)
 {
     token tok = next_token();
 
-    /*  */
     if (tok == PLUSOP || tok == MINUSOP){
+        /* 12. <add op> -> PLUSOP #process_op */
         match(tok);
+        *op = process_op(tok);
     } else {
+        /* 13. <add op> -> MINUSOP #process_op */
         syntax_error(tok);
     }
 }
 
 // TODO: update to include action symbols
-void primary(void)
+void primary(expr_rec * expr)
 {
     token tok = next_token();
-    expr_rec *result;
 
     switch (tok) {
         case LPAREN:
             /* 9. <primary> -> (<expression>) */
             match(LPAREN);
-            result = malloc(sizeof (expr_rec));
-            expression(result);
+            expression(expr);
             match(RPAREN);
             break;
         case ID:
-            /* 10. <primary> -> ID */
+            /* 10. <primary> -> <ident> */
             match(ID);
+            ident(expr);
             break;
         case INTLITERAL:
-            /* 11. <primary> -> INTLITERAL */
+            /* 11. <primary> -> INTLITERAL #process_literal */
             match(INTLITERAL);
+            *expr = process_literal();
             break;
         default:
             syntax_error(tok);

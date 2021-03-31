@@ -4,18 +4,19 @@
 #include "headers/generator.h"
 #include "headers/parser_aux.h"
 #include "headers/ids.h"
+#include <stdlib.h>
 
 void start(void)
 {
     // No semantic initializations needed
     // TODO: eliminate or modify if needed
-    generate("Start", "", "", "");
+    generate((string *) "Start", (string *) "", (string *) "", (string *) "");
 }
 
 void finish(void)
 {
     // Generates the code to finish the program
-    generate("Halt", "", "", "");
+    generate((string *) "Halt", (string *) "", (string *) "", (string *) "");
 }
 
 void assign(expr_rec * target, expr_rec * source)
@@ -23,16 +24,15 @@ void assign(expr_rec * target, expr_rec * source)
     // Generates the code for assignment
     // Target: where the source is going to be saved
     // A := 5 -> target = A
-    generate("Store", extract_expr(source), target.name, "");
+    generate((string *) "Store", (string *) extract_expr(source), (string *) target->name, (string *) "");
 }
 
-op_rec process_op(void)
+op_rec process_op(token tok)
 {
     // Produce operator descriptor
     op_rec o;
-
     // TODO: check if next_token() is the desired function here
-    if (next_token() == PLUSOP){
+    if (tok == PLUSOP){
         o.operator = PLUS;
     } else {
         o.operator = MINUS;
@@ -50,7 +50,7 @@ expr_rec gen_infix(expr_rec e1, op_rec op, expr_rec e2)
     e_rec.kind = TEMPEXPR;
     strcpy(e_rec.name, get_temp());
 
-    generate(extract_op(op), extract_expr(e1), extract_expr(e2), e_rec.name);
+    generate(extract_op(&op), extract_expr(&e1), extract_expr(&e2), (string *) e_rec.name);
     return e_rec;
 }
 
@@ -75,11 +75,11 @@ expr_rec process_id(void)
 expr_rec process_literal(void)
 {
     // Converts literal to a numeric representation
-    // and build semantic record
+    // and builds semantic record
 
     expr_rec t;
     t.kind = LITERALEXPR;
-    /*(void)*/ sscanf(token_buffer, "%d", & t.val); // lee el número completo en el buffer y lo deja en t.val
+    sscanf(token_buffer, "%d", & t.val); // lee el número completo en el buffer y lo deja en t.val
     return t;
 }
 
