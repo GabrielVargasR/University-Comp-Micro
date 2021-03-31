@@ -1,8 +1,9 @@
 -- Archivo de prueba para micro
 begin
 uno := 7;
-dos := 2 + (3 - 4);
-tres := (uno + dos) - 1;
-read(uno, dos);
+dos := 4;
+-- dos := 2 + (3 - 4);
+-- tres := (uno + dos) - 1;
+-- read(uno, dos);
 write(uno, dos);
 end

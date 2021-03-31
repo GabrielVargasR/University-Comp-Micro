@@ -12,21 +12,18 @@ bool valid_file_exists(char path[]);
 #include "headers/records.h"
 int main()
 {
-    expr_rec * exp = malloc(sizeof (expr_rec));
-    exp->kind = IDEXPR;
-    strcpy(exp->name, "abc");
+    string table[100];
 
-    expr_rec * exp2 = malloc(sizeof (expr_rec));
-    exp2->kind = LITERALEXPR;
-    exp2->val = 532;
+    strcpy(table[0], "hola");
+    strcpy(table[1], "adios");
 
-    string *s;
-    s = malloc(sizeof(string));
-    sprintf((char *) s, "%d",exp2->val);
-
-    printf("%s", s);
-
-//    printf("%s %d \n", typeof(5));
+    for(int i = 0; i < 100; i++)
+    {
+        if (!strcmp(table[i], "adios")) {
+            printf("sí");
+            break;
+        }
+    }
 }
 */
 ///*

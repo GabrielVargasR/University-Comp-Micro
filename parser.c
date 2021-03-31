@@ -120,10 +120,12 @@ void expr_list(void)
     /* 7. <expr list> -> <expression> {, <expression>} */
     expr_rec *result = malloc(sizeof (expr_rec));
     expression(result);
+    write_expr(*result);
 
     while (next_token() == COMMA) {
         match(COMMA);
         expression(result);
+        write_expr(*result);
     }
 }
 
