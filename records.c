@@ -1,7 +1,17 @@
 #include "headers/records.h"
-
-// TODO: fix pointer warnings
-string * extract()
+int extract_op(op_rec op)
 {
-    return "extract tmp return";
+    return op.operator;
+}
+
+string * extract_expr(expr_rec * expr)
+{
+    switch (expr->kind) {
+        case LITERALEXPR:
+            return (string *) expr->val;
+        case IDEXPR:
+        case TEMPEXPR:
+        default:
+            return (string *) expr->name;
+    }
 }

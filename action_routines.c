@@ -18,10 +18,12 @@ void finish(void)
     generate("Halt", "", "", "");
 }
 
-void assign(expr_rec target, expr_rec source)
+void assign(expr_rec * target, expr_rec * source)
 {
     // Generates the code for assignment
-    generate("Store", extract(source), target.name, "");
+    // Target: where the source is going to be saved
+    // A := 5 -> target = A
+    generate("Store", extract_expr(source), target.name, "");
 }
 
 op_rec process_op(void)
@@ -48,7 +50,7 @@ expr_rec gen_infix(expr_rec e1, op_rec op, expr_rec e2)
     e_rec.kind = TEMPEXPR;
     strcpy(e_rec.name, get_temp());
 
-    generate(extract(op), extract(e1), extract(e2), e_rec.name);
+    generate(extract_op(op), extract_expr(e1), extract_expr(e2), e_rec.name);
     return e_rec;
 }
 
@@ -84,5 +86,5 @@ expr_rec process_literal(void)
 void write_expr(expr_rec out_expr)
 {
     // Generate code for write
-    generate("Write", extract(out_expr), "Integer", "");
+    generate("Write", extract_expr(out_expr), "Integer", "");
 }

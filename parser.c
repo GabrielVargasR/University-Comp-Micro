@@ -5,6 +5,8 @@
 #include "headers/records.h"
 #include "headers/action_routines.h"
 
+#include <stdio.h>
+#include <stdlib.h>
 void system_goal(void)
 {
     /* 15. <system goal> -> <program> SCANEOF #finish */
@@ -23,7 +25,6 @@ void program(void)
     match(END);
 }
 
-// TODO: update to include action symbols
 void statement_list(void)
 {
     /* 2. <statement list> -> <statement> {<statement>} */
@@ -45,17 +46,23 @@ void statement_list(void)
 void statement(void)
 {
     token tok = next_token();
+    expr_rec *source, *target;
 
     switch (tok) {
         case ID:
-            /* 3. <statement> -> ID := <expression>; */
-            match(ID);
+            /* 3. <statement> -> <ident> := <expression> #assign; */
+            target = malloc(sizeof (expr_rec));
+            source = malloc(sizeof (expr_rec));
+
+            ident(target);
+//            printf("%s\n", extract_expr(target)); //TODO delete print
             match(ASSIGNOP);
-            expression();
+            expression(source);
             match(SEMICOLON);
+            assign(target, source);
             break;
         case READ:
-            /* 4. <statement> -> READ (<id list>); */
+            /* 4. <statement> -> read (<id list>); */
             match(READ);
             match(LPAREN);
             id_list();
@@ -63,7 +70,7 @@ void statement(void)
             match(SEMICOLON);
             break;
         case WRITE:
-            /* 5. <statement> -> WRITE (<expr list>); */
+            /* 5. <statement> -> write (<expr list>); */
             match(WRITE);
             match(LPAREN);
             expr_list();
@@ -88,27 +95,30 @@ void id_list(void)
     }
 }
 
-// TODO: update to include action symbols
-void expression(void)
+void expression(expr_rec *result)
 {
-    token t;
-    /* 8. <expression> -> <primary> {<add op> <primary>} */
-    primary();
-    for (t = next_token(); t == PLUSOP || t == MINUSOP; t = next_token()) {
-        add_op();
-        primary();
+    expr_rec left_operand, right_operand;
+    op_rec * op;
+
+    primary(& left_operand); //TODO: edit primary
+    while (next_token() == PLUSOP || next_token() == MINUSOP) {
+        add_op(op); // TODO: edit add_op
+        primary(& right_operand);
+        left_operand = gen_infix(left_operand, *op, right_operand); //TODO: change pointer/value for op
     }
+    *result = left_operand;
 }
 
 // TODO: update to include action symbols
 void expr_list(void)
 {
     /* 7. <expr list> -> <expression> {, <expression>} */
-    expression();
+    expr_rec *result = malloc(sizeof (expr_rec));
+    expression(result);
 
     while (next_token() == COMMA) {
         match(COMMA);
-        expression();
+        expression(result); //TODO: change value of result? call action routine before that?
     }
 }
 
@@ -129,12 +139,14 @@ void add_op(void)
 void primary(void)
 {
     token tok = next_token();
+    expr_rec *result;
 
     switch (tok) {
         case LPAREN:
             /* 9. <primary> -> (<expression>) */
             match(LPAREN);
-            expression();
+            result = malloc(sizeof (expr_rec));
+            expression(result);
             match(RPAREN);
             break;
         case ID:
@@ -149,4 +161,10 @@ void primary(void)
             syntax_error(tok);
             break;
     }
+}
+
+void ident(expr_rec * id)
+{
+    match(ID);
+    *id = process_id();
 }

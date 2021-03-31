@@ -10,5 +10,6 @@ void expression();
 void expr_list();
 void add_op();
 void primary();
+void ident();
 
 #endif
