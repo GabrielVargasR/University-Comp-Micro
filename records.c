@@ -19,7 +19,6 @@ string * extract_op(op_rec * op)
     }
 }
 
-//TODO: fix return type issue
 string * extract_expr(expr_rec * expr)
 {
     string *str;

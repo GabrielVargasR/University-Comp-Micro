@@ -2,7 +2,7 @@
 begin
 uno := 7;
 dos := 2 + (3 - 4);
--- tres := (uno + dos) - 1;
+tres := (uno + dos) - 1;
 read(uno, dos);
--- write(uno, dos);
+write(uno, dos);
 end

@@ -4,9 +4,8 @@
 #include "headers/parser_aux.h"
 #include "headers/records.h"
 #include "headers/action_routines.h"
-
-#include <stdio.h>
 #include <stdlib.h>
+
 void system_goal(void)
 {
     /* 15. <system goal> -> <program> SCANEOF #finish */
@@ -42,7 +41,6 @@ void statement_list(void)
     }
 }
 
-// TODO: update to include action symbols
 void statement(void)
 {
     token tok = next_token();
@@ -82,7 +80,6 @@ void statement(void)
     }
 }
 
-// TODO: update to include action symbols
 void id_list(void)
 {
     /* 6. <id list> -> <ident> #read_id {, <ident> #read_id} */
@@ -108,11 +105,11 @@ void expression(expr_rec *result)
     right_operand = malloc(sizeof(expr_rec));
     op = malloc(sizeof(op_rec));
 
-    primary(left_operand); //TODO: edit primary
+    primary(left_operand);
     while (next_token() == PLUSOP || next_token() == MINUSOP) {
-        add_op(op); // TODO: edit add_op
+        add_op(op);
         primary(right_operand);
-        *left_operand = gen_infix(*left_operand, *op, *right_operand); //TODO: change pointer/value
+        *left_operand = gen_infix(*left_operand, *op, *right_operand);
     }
     *result = *left_operand;
 }
@@ -126,7 +123,7 @@ void expr_list(void)
 
     while (next_token() == COMMA) {
         match(COMMA);
-        expression(result); //TODO: change value of result? call action routine before that?
+        expression(result);
     }
 }
 
@@ -157,7 +154,6 @@ void primary(expr_rec * expr)
             break;
         case ID:
             /* 10. <primary> -> <ident> */
-            match(ID);
             ident(expr);
             break;
         case INTLITERAL:

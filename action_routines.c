@@ -4,7 +4,6 @@
 #include "headers/generator.h"
 #include "headers/parser_aux.h"
 #include "headers/ids.h"
-#include <stdlib.h>
 
 void start(void)
 {

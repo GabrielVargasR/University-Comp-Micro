@@ -3,7 +3,7 @@
 // TODO: define function
 bool lookup(string var_name)
 {
-    return true;
+    return false;
 };
 
 // TODO: define function
