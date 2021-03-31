@@ -5,5 +5,5 @@ dos := 4;
 -- dos := 2 + (3 - 4);
 -- tres := (uno + dos) - 1;
 -- read(uno, dos);
-write(uno, dos);
+write(5, uno, (1+3));
 end

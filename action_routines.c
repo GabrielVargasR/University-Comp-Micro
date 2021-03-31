@@ -85,5 +85,5 @@ expr_rec process_literal(void)
 void write_expr(expr_rec out_expr)
 {
     // Generate code for write
-    generate("Write", extract_expr(out_expr), "Integer", "");
+    generate("Write", extract_expr(&out_expr), "Integer", "");
 }
