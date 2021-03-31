@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "headers/tokens.h"
 #include "headers/scanner_aux.h"
 
@@ -14,14 +15,14 @@ void clear_buffer()
     };
 
     token_buffer_index = 0;
-};
+}
 
 void buffer_char(char c)
 {
     token_buffer[token_buffer_index] = c;
     token_buffer_index++;
     if (token_buffer_index > MAX_ID_LEN) lexical_error(c);
-};
+}
 
 token check_reserved()
 {

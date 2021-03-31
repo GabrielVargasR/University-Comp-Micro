@@ -5,4 +5,5 @@ void match(token t);
 token next_token();
 void syntax_error(token t);
 void init();
+token current_token;
 #endif

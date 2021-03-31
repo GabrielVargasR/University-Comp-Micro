@@ -9,11 +9,9 @@
 
 bool valid_file_exists(char path[]);
 
-
 int main(int argc, char *argv[])
 {
     if (argc == 2) {
-        // printf("%s\n", argv[1]);
         if (valid_file_exists(argv[1])){
             set_file(argv[1]); // sets file for the scanner
             system_goal();
