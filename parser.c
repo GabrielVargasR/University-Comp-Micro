@@ -55,7 +55,6 @@ void statement(void)
             source = malloc(sizeof (expr_rec));
 
             ident(target);
-//            printf("%s\n", extract_expr(target)); //TODO delete print
             match(ASSIGNOP);
             expression(source);
             match(SEMICOLON);
@@ -86,12 +85,17 @@ void statement(void)
 // TODO: update to include action symbols
 void id_list(void)
 {
-    /* 6. <id list> -> ID {, ID} */
-    match(ID);
+    /* 6. <id list> -> <ident> #read_id {, <ident> #read_id} */
+    expr_rec * expr;
+    expr = malloc(sizeof(expr_rec));
+
+    ident(expr); //parser function
+    read_id(*expr); //action routine
 
     while (next_token() == COMMA) {
         match(COMMA);
-        match(ID);
+        ident(expr); //parser function
+        read_id(*expr); //action routine
     }
 }
 
@@ -126,7 +130,6 @@ void expr_list(void)
     }
 }
 
-// TODO: update to include action symbols
 void add_op(op_rec * op)
 {
     token tok = next_token();
@@ -134,14 +137,13 @@ void add_op(op_rec * op)
     if (tok == PLUSOP || tok == MINUSOP){
         /* 12. <add op> -> PLUSOP #process_op */
         match(tok);
-        *op = process_op(tok);
+        *op = process_op();
     } else {
         /* 13. <add op> -> MINUSOP #process_op */
         syntax_error(tok);
     }
 }
 
-// TODO: update to include action symbols
 void primary(expr_rec * expr)
 {
     token tok = next_token();

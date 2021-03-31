@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "headers/tokens.h"
 #include "headers/scanner.h"
+#include "headers/parser_aux.h"
 
 typedef struct queue_node {
     token tok;
@@ -19,7 +20,6 @@ token get_next_token();
 queue *current_tokens;
 
 void print_token(token t); // TODO: borrar
-token current_token;
 
 token next_token()
 {
@@ -27,7 +27,8 @@ token next_token()
     if (current_tokens->size == 0) {
         push(scanner());
     }
-    return current_tokens->head->tok; //returns the head of the queue without removing it from the queue (no pop)
+    current_token = current_tokens->head->tok;
+    return current_token; //returns the head of the queue without removing it from the queue (no pop)
 };
 
 void syntax_error(token t)

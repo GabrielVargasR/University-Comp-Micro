@@ -27,12 +27,12 @@ void assign(expr_rec * target, expr_rec * source)
     generate((string *) "Store", (string *) extract_expr(source), (string *) target->name, (string *) "");
 }
 
-op_rec process_op(token tok)
+op_rec process_op()
 {
     // Produce operator descriptor
     op_rec o;
-    // TODO: check if next_token() is the desired function here
-    if (tok == PLUSOP){
+
+    if (current_token == PLUSOP){
         o.operator = PLUS;
     } else {
         o.operator = MINUS;
