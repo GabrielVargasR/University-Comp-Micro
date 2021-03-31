@@ -14,19 +14,13 @@ Simple Micro compiler for ARM based on chapter 2 of "Crafting a Compiler with C"
 
 `cmake-build-debug/comp test_file.micro `
 
-
-
-
 # TODOs
 - funciones pequeñas:
 	- Kevin:
-		- syntax\_error (parser)
-		- lookup (para symbol table)
-		- enter (para symbol table)
+		- lookup (para symbol table) (optimizar)
+		- enter (para symbol table) (optimizar)
 		- generate (action rutines)
-		- extract (action rutines)
-
-- adaptar funciones del parser (Gabriel)
+	
 - adaptar action rutines para generar ARM (Kevin)
 - agregar if (pendiente)
 - agregar optimización expresión con dos literals (pendiente)
