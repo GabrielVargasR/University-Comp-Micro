@@ -98,6 +98,7 @@ void id_list(void)
 
 void expression(expr_rec *result)
 {
+    /* 8. <expression> -> <primary> {<add op> <primary> #gen_infix} */
     expr_rec * left_operand, * right_operand;
     op_rec * op;
 
@@ -135,10 +136,10 @@ void add_op(op_rec * op)
 
     if (tok == PLUSOP || tok == MINUSOP){
         /* 12. <add op> -> PLUSOP #process_op */
+        /* 13. <add op> -> MINUSOP #process_op */
         match(tok);
         *op = process_op();
     } else {
-        /* 13. <add op> -> MINUSOP #process_op */
         syntax_error(tok);
     }
 }

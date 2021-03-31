@@ -8,7 +8,6 @@
 string table[TABLE_SIZE];
 int counter = 0;
 
-// TODO: define function
 bool lookup(string var_name)
 {
     for (int i = 0; i < counter; i++)

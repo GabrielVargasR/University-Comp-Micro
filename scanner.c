@@ -9,8 +9,6 @@ token scanner(void)
 {
 	int in_char, c;
 
-	clear_buffer();
-
 	if (feof(file)) {
 	    fclose(file);
 		return SCANEOF;
@@ -26,6 +24,7 @@ token scanner(void)
 			 *				 | ID DIGIT
 			 *				 | ID UNDERSCORE
 			 */
+			clear_buffer();
 			buffer_char(in_char);
 			for (c = fgetc(file); isalnum(c) || c == '_'; c = fgetc(file)) {
 				buffer_char(c);
@@ -37,6 +36,7 @@ token scanner(void)
 			 * INTLITERAL ::= DIGIT |
 			 *				  INTLITERAL DIGIT
 			 */
+			clear_buffer();
 			buffer_char(in_char);
 			for (c = fgetc(file); isdigit(c); c = fgetc(file)){
 				buffer_char(c);

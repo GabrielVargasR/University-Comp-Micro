@@ -24,24 +24,6 @@ void buffer_char(char c)
     if (token_buffer_index > MAX_ID_LEN) lexical_error(c);
 }
 
-//TODO delete function
-void print_buffer()
-{
-    char word[MAX_ID_LEN];
-    int num;
-
-    if (isalpha(token_buffer[0]))
-    {
-        sscanf(token_buffer, "%s", word);
-        printf("    %s\n",word);
-    } else if (isnumber(token_buffer[0])) {
-//        sprintf(num, "%d", token_buffer);
-//        printf("    %d\n", num);
-    }
-
-
-}
-
 token check_reserved()
 {
 	char word[MAX_ID_LEN];

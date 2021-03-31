@@ -8,25 +8,7 @@
 #define SOURCE_CODE_EXTENSION "micro"
 
 bool valid_file_exists(char path[]);
-/*
-#include "headers/records.h"
-int main()
-{
-    string table[100];
 
-    strcpy(table[0], "hola");
-    strcpy(table[1], "adios");
-
-    for(int i = 0; i < 100; i++)
-    {
-        if (!strcmp(table[i], "adios")) {
-            printf("sí");
-            break;
-        }
-    }
-}
-*/
-///*
 int main(int argc, char *argv[])
 {
     if (argc == 2) {
@@ -43,7 +25,7 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
-//*/
+
 bool valid_file_exists(char path[])
 {
     char *extension = strrchr(path, '.');

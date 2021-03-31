@@ -55,10 +55,6 @@ void match(token t)
         printf(" vs. ");
         print_token(current_token);
         syntax_error(t);
-    } else {
-        // TODO: delete else statement. This is just for testing
-//        print_token(t);
-//        printf("\n");
     }
 };
 
