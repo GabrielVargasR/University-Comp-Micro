@@ -6,10 +6,9 @@ void check_id(string s)
 {
     if (! lookup(s)){
         enter(s);
-        generate("Declare", s, "Integer", "");
+        generate((string *) "Declare", (string *) s, (string *) "Integer", (string *) "");
     }
 }
-
 
 char *get_temp(void)
 {

@@ -9,7 +9,6 @@ token scanner(void)
 {
 	int in_char, c;
 
-	clear_buffer();
 	if (feof(file)) {
 	    fclose(file);
 		return SCANEOF;
@@ -25,19 +24,20 @@ token scanner(void)
 			 *				 | ID DIGIT
 			 *				 | ID UNDERSCORE
 			 */
+			clear_buffer();
 			buffer_char(in_char);
 			for (c = fgetc(file); isalnum(c) || c == '_'; c = fgetc(file)) {
 				buffer_char(c);
 			}
 			ungetc(c, file); // para no perder el que se acaba de leer que no es alnum
-			file = file;
 			return check_reserved();
 		} else if (isdigit(in_char)) {
 			/*
 			 * INTLITERAL ::= DIGIT |
 			 *				  INTLITERAL DIGIT
 			 */
-			buffer_char(c);
+			clear_buffer();
+			buffer_char(in_char);
 			for (c = fgetc(file); isdigit(c); c = fgetc(file)){
 				buffer_char(c);
 			}
