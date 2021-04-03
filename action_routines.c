@@ -9,13 +9,19 @@ void start(void)
 {
     // No semantic initializations needed
     // TODO: eliminate or modify if needed
-    generate((string *) "Start", (string *) "", (string *) "", (string *) "");
+    generate((string *) ".global _start", (string *) "", (string *) "", (string *) "");
+    generate((string *) ".section .text", (string *) "", (string *) "", (string *) "");
+    generate((string *) "", (string *) "", (string *) "", (string *) "");
+    generate((string *) "_start:", (string *) "", (string *) "", (string *) "");
 }
 
 void finish(void)
 {
     // Generates the code to finish the program
-    generate((string *) "Halt", (string *) "", (string *) "", (string *) "");
+    generate((string *) "mov", (string *) "r7,", (string *) "#0x1", (string *) "");
+    generate((string *) "mov", (string *) "r0,", (string *) "#13", (string *) "");
+    generate((string *) "", (string *) "", (string *) "", (string *) "");
+    generate((string *) "swi", (string *) "0", (string *) "", (string *) "");
 }
 
 void assign(expr_rec * target, expr_rec * source)
@@ -57,7 +63,7 @@ expr_rec gen_infix(expr_rec e1, op_rec op, expr_rec e2)
 void read_id(expr_rec in_var)
 {
     // Generate code for read
-    generate("Read", in_var.name, "Integer", "");
+    generate((string *)"Read", (string *)in_var.name, (string *)"Integer", (string *)"");
 }
 
 expr_rec process_id(void)
@@ -85,5 +91,5 @@ expr_rec process_literal(void)
 void write_expr(expr_rec out_expr)
 {
     // Generate code for write
-    generate("Write", extract_expr(&out_expr), "Integer", "");
+    generate((string *)"Write", (string *)extract_expr(&out_expr), (string *)"Integer", (string *)"");
 }
