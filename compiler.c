@@ -8,11 +8,19 @@
 #define SOURCE_CODE_EXTENSION "micro"
 
 bool valid_file_exists(char path[]);
+FILE * fPtr;
 
 int main(int argc, char *argv[])
-{
-    if (argc == 2) {
+{    
+    if (argc == 2) {           
         if (valid_file_exists(argv[1])){
+	    fPtr = fopen("./comp.asm", "w");
+	    /* fopen() return NULL if last operation was unsuccessful */
+            if(fPtr == NULL) {
+               /* File not created hence exit */
+               printf("Unable to create file.\n");
+               exit(EXIT_FAILURE);
+            }
             set_file(argv[1]); // sets file for the scanner
             system_goal();
         } else {
@@ -23,6 +31,7 @@ int main(int argc, char *argv[])
         printf("\nExpected (1) argument, got (%d)\n", argc-1);
         printf("Usage: comp <path/to/micro/file>\n");
     }
+    fclose(fPtr);
     return 0;
 }
 
