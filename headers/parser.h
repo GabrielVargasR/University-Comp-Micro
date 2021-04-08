@@ -6,6 +6,7 @@ void program();
 void statement_list();
 void statement();
 void id_list();
+void normal_expression();
 void expression();
 void expr_list();
 void add_op();

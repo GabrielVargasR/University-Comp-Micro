@@ -99,6 +99,31 @@ void id_list(void)
 void expression(expr_rec *result)
 {
     /* 8. <expression> -> <primary> {<add op> <primary> #gen_infix} */
+    token tok = next_token();
+    expr_rec *res = malloc(sizeof (expr_rec));
+
+    switch (tok) {
+        case LPAREN:
+            match(LPAREN);
+            normal_expression(res);
+            match(PIPE);
+            normal_expression(res);
+            match(PIPE);
+            normal_expression(res);
+            match(RPAREN);
+        default:
+            normal_expression(res);
+    }
+
+}
+
+void conditional_expression()
+{
+
+}
+
+void normal_expression(expr_rec *result)
+{
     expr_rec * left_operand, * right_operand;
     op_rec * op;
 
@@ -115,7 +140,6 @@ void expression(expr_rec *result)
     *result = *left_operand;
 }
 
-// TODO: update to include action symbols
 void expr_list(void)
 {
     /* 7. <expr list> -> <expression> {, <expression>} */
