@@ -9,10 +9,10 @@ string * extract_op(op_rec * op)
 
     switch (op->operator) {
         case PLUS:
-            strcpy(str, "Add");
+            strcpy(str, "add");
             return str;
         case MINUS:
-            strcpy(str, "Sub");
+            strcpy(str, "sub");
             return str;
         default:
             break;

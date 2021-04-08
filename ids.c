@@ -6,7 +6,8 @@ void check_id(string s)
 {
     if (! lookup(s)){
         enter(s);
-        generate((string *) "Declare", (string *) s, (string *) "Integer", (string *) "");
+        generateData((string *) ".balign 4", (string *) "", (string *) "", (string *) "");
+        generateData((string *) s, (string *) ": ", (string *) ".word ", (string *) "0");
     }
 }
 
@@ -16,7 +17,7 @@ char *get_temp(void)
     static char tempname[MAX_ID_LEN];
 
     max_temp++;
-    sprintf(tempname, "Temp&%d", max_temp);
+    sprintf(tempname, "Temp%d", max_temp);
     check_id(tempname);
     return tempname;
 }
