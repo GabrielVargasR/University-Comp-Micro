@@ -4,5 +4,7 @@ uno := 7;
 dos := 2 + (3 - 4);
 tres := (uno + dos) - 1;
 read(uno, dos);
-write(5, uno, (1+3), tres);
+write(5, uno, (1+3));
+cuatro := (1|2|3);
+cinco := (0|(uno|(1|2|3)|3)|(dos));
 end
