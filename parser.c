@@ -172,6 +172,7 @@ void primary(expr_rec * expr)
         case LPAREN:
             /* 9. <primary> -> (<expression>) */
             match(LPAREN);
+            conditional_flag = 0;
             expression(expr);
             match(RPAREN);
             break;
