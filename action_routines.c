@@ -59,6 +59,15 @@ expr_rec gen_infix(expr_rec e1, op_rec op, expr_rec e2)
     return e_rec;
 }
 
+expr_rec gen_conditional(expr_rec e1, expr_rec e2, expr_rec e3)
+{
+    expr_rec e_rec;
+    e_rec.kind = TEMPEXPR;
+    strcpy(e_rec.name, get_temp());
+
+    generate((string *) "if", extract_expr(&e1), extract_expr(&e2), extract_expr(&e3));
+    return e_rec;
+}
 
 void read_id(expr_rec in_var)
 {

@@ -132,7 +132,8 @@ void conditional(expr_rec *result)
         expression(e2);
         match(PIPE);
         expression(e3);
-        //aquí se llamaría action routine
+
+        *result = gen_conditional(*result, *e2, *e3);
     }
 }
 
