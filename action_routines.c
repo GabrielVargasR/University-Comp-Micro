@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "headers/records.h"
 #include "headers/generator.h"
@@ -52,10 +53,21 @@ expr_rec gen_infix(expr_rec e1, op_rec op, expr_rec e2)
 
     // Sets up temp expression
     expr_rec e_rec;
-    e_rec.kind = TEMPEXPR;
-    strcpy(e_rec.name, get_temp());
 
-    generate(extract_op(&op), extract_expr(&e1), extract_expr(&e2), (string *) e_rec.name);
+    int res;
+    if (e1.kind == LITERALEXPR && e2.kind == LITERALEXPR){
+        if (op.operator == PLUS) res = e1.val + e2.val;
+        else res = e1.val - e2.val;
+
+        printf("%d %s %d = %d\n", e1.val, extract_op(&op), e2.val, res);
+        e_rec.kind = LITERALEXPR;
+        e_rec.val = res;
+    } else {
+        e_rec.kind = TEMPEXPR;
+        strcpy(e_rec.name, get_temp());
+        generate(extract_op(&op), extract_expr(&e1), extract_expr(&e2), (string *) e_rec.name);
+    }
+
     return e_rec;
 }
 
