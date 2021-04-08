@@ -47,6 +47,8 @@ token scanner(void)
 			return LPAREN;
 		} else if (in_char == ')') {
 			return RPAREN;
+		} else if (in_char == '|') {
+		    return PIPE;
 		} else if (in_char == ';') {
 			return SEMICOLON;
 		} else if (in_char == ',') {
