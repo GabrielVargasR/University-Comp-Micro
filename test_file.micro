@@ -8,6 +8,7 @@ begin
 -- cuatro := (1|2|3);
 -- cinco := (0|(uno|(1|2|3)|3)|(dos));
 
-uno := (1|2|3);
-write(uno);
+read(uno, dos);
+tres := (uno|(5|4+2|dos)|5-2);
+write(tres);
 end
