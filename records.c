@@ -9,10 +9,10 @@ string * extract_op(op_rec * op)
 
     switch (op->operator) {
         case PLUS:
-            strcpy(str, "add");
+            strcpy((char *) str, "add");
             return str;
         case MINUS:
-            strcpy(str, "sub");
+            strcpy((char *) str, "sub");
             return str;
         default:
             break;
@@ -25,7 +25,7 @@ string * extract_expr(expr_rec * expr)
     switch (expr->kind) {
         case LITERALEXPR:
             str = malloc(sizeof(string));
-            sprintf(str, "%d", expr->val);
+            sprintf((char *) str, "%d", expr->val);
             return str;
         case IDEXPR:
         case TEMPEXPR:

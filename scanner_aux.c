@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 #include "headers/tokens.h"
 #include "headers/scanner_aux.h"
 

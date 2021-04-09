@@ -80,9 +80,9 @@ token scanner(void)
 		}
 	}
 	// Warning can be removed with a return here
-};
+}
 
 void set_file(char *path)
 {
     file = fopen(path, "r");
-};
+}

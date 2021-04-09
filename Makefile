@@ -1,0 +1,2 @@
+compiler: compiler.c scanner.c parser.c scanner_aux.c parser_aux.c records.c action_routines.c generator.c ids.c symbol_table.c
+	gcc -o mc compiler.c scanner.c parser.c scanner_aux.c parser_aux.c records.c action_routines.c generator.c ids.c symbol_table.c
