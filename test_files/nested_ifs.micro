@@ -8,6 +8,6 @@ var2 := 2 + (3-4);
 var3 := (var1+var2) -2;
 var4 := (1|2|3);
 
-nest := (op1|(op2|var2+8675|(op3-var4|var3|132))|var1);
+nest := (op1|(op2|var2+234|(op3-var4|var3|132))|var1);
 write(nest);
 end
