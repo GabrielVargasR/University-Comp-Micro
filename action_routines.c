@@ -201,12 +201,16 @@ expr_rec process_literal(void)
 }
 
 void write_expr(expr_rec out_expr)
-{   
+{
+    string name = "=";
     // Generate code for write
     generate((string *)"@_write:", (string *)"", (string *)"", (string *)"");
     generate((string *)"ldr", (string *)"r0,", (string *)"=message", (string *)"");
     if (out_expr.kind == LITERALEXPR){
-    	generate((string *)"mov", (string*)"r1,", prep_name(&out_expr), (string *)"");
+        strcat(name, get_temp(VARIABLE));
+        generate((string *) "mov", (string *) "r2,", prep_name(&out_expr), (string *)"");
+        generate((string *) "ldr", (string *)"r1, ", &name, (string *)"");
+        generate((string *) "str", (string *) "r2,", (string *) "[r1]",(string *) "");
     }else{
         generate((string *)"ldr", (string *)"r1,", prep_name(&out_expr), (string *)"");
     }
