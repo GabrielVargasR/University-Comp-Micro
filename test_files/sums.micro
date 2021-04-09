@@ -1,0 +1,26 @@
+-- Cuestionario de sumas, se muestran varios numeros en pantalla y se debe ingresar el resultado de la suma de ellos, si es correcto se retorna 1, si es incorrecto 0
+begin
+write(2, 4);
+correcto := 2 + 4;
+read(uno);
+res := (correcto-uno|0|1);
+write(res);
+
+write(88, 120);
+correcto := 88 + 120;
+read(dos);
+res := (correcto-dos|0|1);
+write(res);
+
+write(23, 34, 55);
+correcto := 23 + 34 + 55;
+read(tres);
+res := (correcto-tres|0|1);
+write(res);
+
+write(11, 23, 75, 97, 42);
+correcto := 11 + 23 + 75 + 97 + 42;
+read(cuatro);
+res := (correcto-4|0|1);
+write(res);
+end

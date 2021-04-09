@@ -1,0 +1,27 @@
+-- Adivinar el próximo número de la serie, si es correcto se retorna 1, si es incorrecto 0
+begin
+uno := 56;
+dos := 29;
+tres := 34;
+cuatro := 120; 
+
+write(0, 7, 14, 21, 28, 35, 42, 49);
+read(siguiente);
+res := (uno-siguiente|0|1);
+write(res);
+
+write(2, 3, 5, 7, 11, 13, 17, 19, 23); 
+read(siguiente);
+res := (dos-siguiente|0|1);
+write(res);
+
+write(0, 1, 1, 2, 3, 5, 8, 13, 21);
+read(siguiente);
+res := (tres-siguiente|0|1);
+write(res);
+
+write(1, 2, 6, 24);
+read(siguiente);
+res := (cuatro-siguiente|0|1);
+write(res);
+end
