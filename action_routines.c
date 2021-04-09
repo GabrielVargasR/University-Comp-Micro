@@ -101,7 +101,7 @@ expr_rec gen_infix(expr_rec e1, op_rec op, expr_rec e2)
     }
 
     // Makes operation and stores in temp value
-    generate(extract_op(&op), (string *) "r0", (string *) "r0", (string *) "r1");
+    generate(extract_op(&op), (string *) "r0,", (string *) "r0,", (string *) "r1");
     generate((string *) "ldr", (string *) "r9,", type_expr((string *)e_rec.name), (string *) "");
     generate((string *) "str", (string *) "r0,", (string *) "[r9]",(string *) "");
     generate((string *) "", (string *) "", (string *) "", (string *) "");
