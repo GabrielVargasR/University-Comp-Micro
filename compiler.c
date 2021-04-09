@@ -6,18 +6,20 @@
 #include "headers/scanner.h"
 #include "headers/parser.h"
 #define SOURCE_CODE_EXTENSION "micro"
+#define TEMP_FILE "./tmp.txt"
 
 bool valid_file_exists(char path[]);
 void init_files();
 void close_files();
 FILE * fPtr;
 FILE * fPtrTemp;
+char *name;
 
 int main(int argc, char *argv[])
 {
-    if (argc == 2) {           
+    if (argc == 3) {
         if (valid_file_exists(argv[1])){
-	        init_files();
+	        init_files(argv[2]);
             set_file(argv[1]); // sets file for the scanner
             system_goal();
             close_files();
@@ -27,7 +29,7 @@ int main(int argc, char *argv[])
         }
     } else {
         printf("\nExpected (1) argument, got (%d)\n", argc-1);
-        printf("Usage: comp <path/to/micro/file>\n");
+        printf("Usage: comp <path/to/micro/file> <ASM file name>\n");
     }
 
     return 0;
@@ -45,10 +47,13 @@ bool valid_file_exists(char path[])
     return false;
 }
 
-void init_files()
+void init_files(char *file_name)
 {
-    fPtr = fopen("./comp.s", "w");
-    fPtrTemp = fopen("./compTemp.txt", "w");
+    name = malloc(sizeof(char)*100);
+    strcat(name, "./");
+    strcat(name, file_name);
+    fPtr = fopen(name, "w");
+    fPtrTemp = fopen(TEMP_FILE, "w");
 
     /* fopen() return NULL if last operation was unsuccessful */
     if(fPtr == NULL || fPtrTemp == NULL) {
@@ -69,8 +74,8 @@ void close_files()
 {
     fclose(fPtrTemp);
     fclose(fPtr);
-    fPtr = fopen("./comp.s", "a+");
-    fPtrTemp = fopen("./compTemp.txt", "a+");
+    fPtr = fopen(name, "a+");
+    fPtrTemp = fopen(TEMP_FILE, "a+");
 
     char c;
     c = fgetc(fPtrTemp);
@@ -81,5 +86,5 @@ void close_files()
     }
     fclose(fPtrTemp);
     fclose(fPtr);
-    remove("./compTemp.txt");
+    remove(TEMP_FILE);
 }
