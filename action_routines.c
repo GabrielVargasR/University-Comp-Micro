@@ -84,7 +84,6 @@ expr_rec gen_infix(expr_rec e1, op_rec op, expr_rec e2)
         if (op.operator == PLUS) res = e1.val + e2.val;
         else res = e1.val - e2.val;
 
-        printf("%d %s %d = %d\n", e1.val, extract_op(&op), e2.val, res);
         e_rec.kind = LITERALEXPR;
         e_rec.val = res;
     } else {
@@ -113,7 +112,7 @@ expr_rec gen_conditional(expr_rec e1, expr_rec e2, expr_rec e3)
     }else{
         generate((string *) "mov", (string *) "r1,", type_expr(extract_expr(&e2)), (string *) "");
     }
-    generate(extract_op(&op), (string *) "r2,",(string *) "r1,",(string *) "r0");
+
     generate((string *) "ldr", (string *) "r9,", type_expr((string *)e_rec.name), (string *) "");
     generate((string *) "str", (string *) "r2,", (string *) "[r9]",(string *) "");
     generate((string *) "", (string *) "", (string *) "", (string *) "");
