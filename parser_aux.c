@@ -126,6 +126,9 @@ void print_token(token t)
         case RPAREN:
             printf("RPAREN ");
             break;
+        case PIPE:
+            printf("PIPE ");
+            break;
         case SEMICOLON:
             printf("SEMICOLON ");
             break;
