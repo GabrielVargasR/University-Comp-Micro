@@ -85,7 +85,6 @@ expr_rec gen_infix(expr_rec e1, op_rec op, expr_rec e2)
         if (op.operator == PLUS) res = e1.val + e2.val;
         else res = e1.val - e2.val;
 
-        printf("%d %s %d = %d\n", e1.val, extract_op(&op), e2.val, res);
         e_rec.kind = LITERALEXPR;
         e_rec.val = res;
     } else {
