@@ -134,20 +134,20 @@ expr_rec gen_conditional(expr_rec e1, expr_rec e2, expr_rec e3)
 
     //assigns e2 if no branch (e1 != 0)
     if (e2.kind == LITERALEXPR) {
-        generate((string *) "mov", (string *) "r0", type_expr(extract_expr(&e2)), (string *) "");
+        generate((string *) "mov", (string *) "r0,", type_expr(extract_expr(&e2)), (string *) "");
     } else {
-        generate((string *) "ldr", (string *) "r0", type_expr(extract_expr(&e2)), (string *) "");
-        generate((string *) "ldr", (string *) "r0", (string *) "[r0]", (string *) "");
+        generate((string *) "ldr", (string *) "r0,", type_expr(extract_expr(&e2)), (string *) "");
+        generate((string *) "ldr", (string *) "r0,", (string *) "[r0]", (string *) "");
     }
     generate((string *) "b", &tag2, (string *) "", (string *) "");
 
     //assigns e3 if beq branches (e1 == 0)
     generate(&tag1, (string *) ":", (string *) "", (string *) "");
     if (e3.kind == LITERALEXPR) {
-        generate((string *) "mov", (string *) "r0", type_expr(extract_expr(&e3)), (string *) "");
+        generate((string *) "mov", (string *) "r0,", type_expr(extract_expr(&e3)), (string *) "");
     } else {
-        generate((string *) "ldr", (string *) "r0", type_expr(extract_expr(&e3)), (string *) "");
-        generate((string *) "ldr", (string *) "r0", (string *) "[r0]", (string *) "");
+        generate((string *) "ldr", (string *) "r0,", type_expr(extract_expr(&e3)), (string *) "");
+        generate((string *) "ldr", (string *) "r0,", (string *) "[r0]", (string *) "");
     }
     generate(&tag2, (string *) ":", (string *) "", (string *) "");
 
