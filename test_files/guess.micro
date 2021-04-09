@@ -3,15 +3,20 @@
 -- Si el usuario adivina el número, se imprime un 1. De lo contrario, se imprime un 0
 
 begin
-num := 12345;
+num := 255;
 read(guess);
 resultado := (num-guess|0|1);
+write(resultado);
 read(guess);
 resultado := (num-guess|0|1);
+write(resultado);
 read(guess);
 resultado := (num-guess|0|1);
+write(resultado);
 read(guess);
 resultado := (num-guess|0|1);
+write(resultado);
 read(guess);
 resultado := (num-guess|0|1);
+write(resultado);
 end
