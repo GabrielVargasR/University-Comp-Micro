@@ -2,6 +2,8 @@
 #define ACTION_ROUTINES_H
 #include "records.h"
 
+
+string * type_expr(string * expr);
 void start(void);
 void finish(void);
 void assign(expr_rec * target, expr_rec * source);
