@@ -1,0 +1,27 @@
+-- Tres numeros que sumados den el numero mostrado en pantalla, si es correcto se retorna 1, si es incorrecto 0
+begin
+
+write(127);
+read(uno,dos,tres);
+cuatro := uno + dos + tres;
+res := (cuatro-127|0|1);
+write(res);
+
+write(233);
+read(uno,dos,tres);
+cuatro := uno + dos + tres;
+res := (cuatro-233|0|1);
+write(res);
+
+write(24);
+read(uno,dos,tres);
+cuatro := uno + dos + tres;
+res := (cuatro-24|0|1);
+write(res);
+
+write(85);
+read(uno,dos,tres);
+cuatro := uno + dos + tres;
+res := (cuatro-85|0|1);
+write(res);
+end
