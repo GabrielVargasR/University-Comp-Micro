@@ -79,32 +79,44 @@ expr_rec gen_infix(expr_rec e1, op_rec op, expr_rec e2)
 
     // Sets up temp expression
     expr_rec e_rec;
-    e_rec.kind = TEMPEXPR;
-    strcpy(e_rec.name, get_temp(VARIABLE));
 
-    generate((string *)"@_operation:", (string *)"", (string *)"", (string *)""); //TODO: eliminate
+    int res;
+    if (e1.kind == LITERALEXPR && e2.kind == LITERALEXPR){
+        if (op.operator == PLUS) res = e1.val + e2.val;
+        else res = e1.val - e2.val;
 
-    // Prepares first operand
-    if (e1.kind == LITERALEXPR) {
-        generate((string *) "mov", (string *) "r0,", prep_name(&e1), (string *) "");
+        e_rec.kind = LITERALEXPR;
+        e_rec.val = res;
     } else {
-        generate((string *) "ldr", (string *) "r0,", prep_name(&e1), (string *) "");
-        generate((string *) "ldr", (string *) "r0,", (string *) "[r0]", (string *) "");
+        e_rec.kind = TEMPEXPR;
+        strcpy(e_rec.name, get_temp(VARIABLE));
+
+        generate((string *)"@_operation:", (string *)"", (string *)"", (string *)""); //TODO: eliminate
+
+        // Prepares first operand
+        if (e1.kind == LITERALEXPR) {
+            generate((string *) "mov", (string *) "r0,", prep_name(&e1), (string *) "");
+        } else {
+            generate((string *) "ldr", (string *) "r0,", prep_name(&e1), (string *) "");
+            generate((string *) "ldr", (string *) "r0,", (string *) "[r0]", (string *) "");
+        }
+
+        // Prepares second operand
+        if (e2.kind == LITERALEXPR) {
+            generate((string *) "mov", (string *) "r1,", prep_name(&e2), (string *) "");
+        } else {
+            generate((string *) "ldr", (string *) "r1,", prep_name(&e2), (string *) "");
+            generate((string *) "ldr", (string *) "r1,", (string *) "[r1]", (string *) "");
+        }
+
+        // Makes operation and stores in temp value
+        generate(extract_op(&op), (string *) "r0,", (string *) "r0,", (string *) "r1");
+        generate((string *) "ldr", (string *) "r9,", prep_name(&e_rec), (string *) "");
+        generate((string *) "str", (string *) "r0,", (string *) "[r9]",(string *) "");
+        generate((string *) "", (string *) "", (string *) "", (string *) "");
     }
 
-    // Prepares second operand
-    if (e2.kind == LITERALEXPR) {
-        generate((string *) "mov", (string *) "r1,", prep_name(&e2), (string *) "");
-    } else {
-        generate((string *) "ldr", (string *) "r1,", prep_name(&e2), (string *) "");
-        generate((string *) "ldr", (string *) "r1,", (string *) "[r1]", (string *) "");
-    }
 
-    // Makes operation and stores in temp value
-    generate(extract_op(&op), (string *) "r0,", (string *) "r0,", (string *) "r1");
-    generate((string *) "ldr", (string *) "r9,", prep_name(&e_rec), (string *) "");
-    generate((string *) "str", (string *) "r0,", (string *) "[r9]",(string *) "");
-    generate((string *) "", (string *) "", (string *) "", (string *) "");
 
     return e_rec;
 }
@@ -189,12 +201,16 @@ expr_rec process_literal(void)
 }
 
 void write_expr(expr_rec out_expr)
-{   
+{
+    string name = "=";
     // Generate code for write
     generate((string *)"@_write:", (string *)"", (string *)"", (string *)"");
     generate((string *)"ldr", (string *)"r0,", (string *)"=message", (string *)"");
     if (out_expr.kind == LITERALEXPR){
-    	generate((string *)"mov", (string*)"r1,", prep_name(&out_expr), (string *)"");
+        strcat(name, get_temp(VARIABLE));
+        generate((string *) "mov", (string *) "r2,", prep_name(&out_expr), (string *)"");
+        generate((string *) "ldr", (string *)"r1, ", &name, (string *)"");
+        generate((string *) "str", (string *) "r2,", (string *) "[r1]",(string *) "");
     }else{
         generate((string *)"ldr", (string *)"r1,", prep_name(&out_expr), (string *)"");
     }
