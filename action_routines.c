@@ -85,7 +85,6 @@ expr_rec gen_infix(expr_rec e1, op_rec op, expr_rec e2)
         if (op.operator == PLUS) res = e1.val + e2.val;
         else res = e1.val - e2.val;
 
-        printf("%d %s %d = %d\n", e1.val, extract_op(&op), e2.val, res);
         e_rec.kind = LITERALEXPR;
         e_rec.val = res;
     } else {
@@ -202,12 +201,16 @@ expr_rec process_literal(void)
 }
 
 void write_expr(expr_rec out_expr)
-{   
+{
+    string name = "=";
     // Generate code for write
     generate((string *)"@_write:", (string *)"", (string *)"", (string *)"");
     generate((string *)"ldr", (string *)"r0,", (string *)"=message", (string *)"");
     if (out_expr.kind == LITERALEXPR){
-    	generate((string *)"mov", (string*)"r1,", prep_name(&out_expr), (string *)"");
+        strcat(name, get_temp(VARIABLE));
+        generate((string *) "mov", (string *) "r2,", prep_name(&out_expr), (string *)"");
+        generate((string *) "ldr", (string *)"r1, ", &name, (string *)"");
+        generate((string *) "str", (string *) "r2,", (string *) "[r1]",(string *) "");
     }else{
         generate((string *)"ldr", (string *)"r1,", prep_name(&out_expr), (string *)"");
     }
