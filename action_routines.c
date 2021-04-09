@@ -91,7 +91,7 @@ expr_rec gen_infix(expr_rec e1, op_rec op, expr_rec e2)
         e_rec.kind = TEMPEXPR;
         strcpy(e_rec.name, get_temp(VARIABLE));
 
-        generate((string *)"@_operation:", (string *)"", (string *)"", (string *)""); //TODO: eliminate
+        generate((string *)"@_operation:", (string *)"", (string *)"", (string *)"");
 
         // Prepares first operand
         if (e1.kind == LITERALEXPR) {

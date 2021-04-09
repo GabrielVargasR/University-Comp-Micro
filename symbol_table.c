@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #define TABLE_SIZE 255
 
-// TODO: optimize table
 string table[TABLE_SIZE];
 int counter = 0;
 

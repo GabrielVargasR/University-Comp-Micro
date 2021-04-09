@@ -5,7 +5,6 @@
 #include "headers/records.h"
 #include "headers/action_routines.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 void system_goal(void)
 {
