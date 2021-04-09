@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     char c;
     if (argc == 2) {           
         if (valid_file_exists(argv[1])){
-	    fPtr = fopen("./comp.s", "w");
+	        fPtr = fopen("./comp.s", "w");
             fPtrTemp = fopen("./compTemp.txt", "w");
 	    /* fopen() return NULL if last operation was unsuccessful */
             if(fPtr == NULL || fPtrTemp == NULL) {
