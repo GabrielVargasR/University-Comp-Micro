@@ -1,10 +1,13 @@
 -- Archivo de prueba para micro
 begin
-uno := 7 + 8 - 9 + 1;
-dos := 2 + (3 - 4);
-tres := (uno + dos) - 1;
-read(uno, dos);
-write(5, uno, (1+3));
-cuatro := (1|2|3);
-cinco := (0|(uno|(1|2|3)|3)|(dos));
+-- uno := 7 + 8 - 9 + 1;
+-- dos := 2 + (3 - 4);
+-- tres := (uno + dos) - 1;
+-- read(uno, dos);
+-- write(5, uno, (1+3));
+-- cuatro := (1|2|3);
+-- cinco := (0|(uno|(1|2|3)|3)|(dos));
+
+read(uno,dos,tres);
+write(uno, dos, tres);
 end

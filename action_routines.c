@@ -50,6 +50,7 @@ void assign(expr_rec * target, expr_rec * source)
     generate((string *)"@_assign:", (string *)"", (string *)"", (string *)"");
     if (*type_expr(extract_expr(source))[0] == '='){
     	generate((string *) "ldr", (string *) "r8,", type_expr(extract_expr(source)), (string *) "");
+        generate((string *) "ldr", (string *) "r8,", (string *) "[r8]", (string *) "");
     }else{
         generate((string *) "mov", (string *) "r8,", type_expr(extract_expr(source)), (string *) "");
     }
