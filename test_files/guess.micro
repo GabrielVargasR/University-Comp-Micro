@@ -1,0 +1,17 @@
+-- Este programa tiene número secreto que tiene que ser adivinado por el usuario
+-- El usuario tiene 5 intentos para adivinar
+-- Si el usuario adivina el número, se imprime un 1. De lo contrario, se imprime un 0
+
+begin
+num := 12345;
+read(guess);
+resultado := (num-guess|0|1);
+read(guess);
+resultado := (num-guess|0|1);
+read(guess);
+resultado := (num-guess|0|1);
+read(guess);
+resultado := (num-guess|0|1);
+read(guess);
+resultado := (num-guess|0|1);
+end
