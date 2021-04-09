@@ -8,7 +8,8 @@
 
 bool is_var_name(string s)
 {
-    if (s[1]=='T') return true;
+    // if the second character is an 'L', it is a temp label name, and hence it is not a variable
+    if (s[0] != '_' || s[1]=='T') return true;
     return false;
 }
 
