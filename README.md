@@ -17,3 +17,6 @@ Simple Micro compiler for ARM based on chapter 2 of "Crafting a Compiler with C"
 `cmake --build . `
 
 `./mc <path/to/micro/file> <name_for_result_file>`
+
+# Makefile Instructions
+`make`
