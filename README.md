@@ -5,15 +5,15 @@ Simple Micro compiler for ARM based on chapter 2 of "Crafting a Compiler with C"
 - Gabriel Vargas Rodríguez - 2018103129
 - Kevin Sánchez Cerdas - 2019206148
 
-# Instructions
+# CMake Instructions
 1. sudo apt install cmake
 2. check CMakeLists.txt and make sure cmake version is compatible (cmake --version)
-3. create directory for build: `mkdir cmake-build-debug`
+3. create directory for build and cd ino it: `mkdir cmake-build-debug && cd cmake-build-debug`
 
-###### Compilation steps:
+### Compilation steps:
 
-`cmake cmake-build-debug . `
+`cmake . .. `
 
-`cmake --build cmake-build-debug `
+`cmake --build . `
 
-`cmake-build-debug/comp test_file.micro `
+`./mc <path/to/micro/file> <name_for_result_file>`
