@@ -72,35 +72,14 @@ op_rec process_op()
 }
 
 expr_rec gen_infix(expr_rec e1, op_rec op, expr_rec e2)
-{
+{ 
     // Generate code for infix operation
     // Get result temp and set up semantic record for result
 
     // Sets up temp expression
     expr_rec e_rec;
-
-    int res;
-    if (e1.kind == LITERALEXPR && e2.kind == LITERALEXPR){
-        if (op.operator == PLUS) res = e1.val + e2.val;
-        else res = e1.val - e2.val;
-
-        e_rec.kind = LITERALEXPR;
-        e_rec.val = res;
-    } else {
-        e_rec.kind = TEMPEXPR;
-        strcpy(e_rec.name, get_temp());
-        generate(extract_op(&op), extract_expr(&e1), extract_expr(&e2), (string *) e_rec.name);
-    }
-
-    return e_rec;
-}
-
-expr_rec gen_conditional(expr_rec e1, expr_rec e2, expr_rec e3)
-{
-    expr_rec e_rec;
     e_rec.kind = TEMPEXPR;
     strcpy(e_rec.name, get_temp());
-  
     generate((string *)"@_operation:", (string *)"", (string *)"", (string *)"");
     if (*type_expr(extract_expr(&e1))[0] == '='){
     	generate((string *) "ldr", (string *) "r0,", type_expr(extract_expr(&e1)), (string *) "");
@@ -112,10 +91,18 @@ expr_rec gen_conditional(expr_rec e1, expr_rec e2, expr_rec e3)
     }else{
         generate((string *) "mov", (string *) "r1,", type_expr(extract_expr(&e2)), (string *) "");
     }
-
+    generate(extract_op(&op), (string *) "r2,",(string *) "r1,",(string *) "r0");
     generate((string *) "ldr", (string *) "r9,", type_expr((string *)e_rec.name), (string *) "");
     generate((string *) "str", (string *) "r2,", (string *) "[r9]",(string *) "");
     generate((string *) "", (string *) "", (string *) "", (string *) "");
+    return e_rec;
+}
+
+expr_rec gen_conditional(expr_rec e1, expr_rec e2, expr_rec e3)
+{
+    expr_rec e_rec;
+    e_rec.kind = TEMPEXPR;
+    strcpy(e_rec.name, get_temp());
   
     return e_rec;
 }
