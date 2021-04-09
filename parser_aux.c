@@ -19,7 +19,7 @@ void push(token tok);
 token get_next_token();
 queue *current_tokens;
 
-void print_token(token t); // TODO: borrar
+void print_token(token t);
 
 token next_token()
 {
@@ -33,9 +33,8 @@ token next_token()
 
 void syntax_error(token t)
 {
-    //TODO: implementar bien. Este código es temporal
     printf("Syntax error\n");
-    exit(1); //TODO: revisar exit codes
+    exit(1);
 };
 
 void match(token t)
@@ -50,15 +49,14 @@ void match(token t)
 
     // if t is not of the same type as the current type, the code has a syntax error
     if (t != current_token){
-        // TODO: delete prints
+        printf("Expected: ");
         print_token(t);
-        printf(" vs. ");
+        printf(", got");
         print_token(current_token);
         syntax_error(t);
     }
 };
 
-// TODO: move queue code elsewhere?
 void push(token tok)
 {
     queue_node *node;
@@ -98,7 +96,6 @@ void init()
     current_tokens->size = 0;
 };
 
-// TODO: evaluate if this should be kept for use of syntax_error
 void print_token(token t)
 {
     switch(t) {

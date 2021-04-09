@@ -2,8 +2,6 @@
 #include "headers/records.h"
 #include "headers/generator.h"
 
-// TODO: change parameter names
-// TODO: define generate function well
 extern FILE * fPtr;
 extern FILE * fPtrTemp;
 
