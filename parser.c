@@ -5,6 +5,7 @@
 #include "headers/records.h"
 #include "headers/action_routines.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 void system_goal(void)
 {
@@ -54,6 +55,7 @@ void statement(void)
 
             ident(target);
             match(ASSIGNOP);
+            conditional_flag = 0;
             expression(source);
             match(SEMICOLON);
             assign(target, source);
@@ -99,6 +101,7 @@ void id_list(void)
 void expression(expr_rec *result)
 {
     /* 8. <expression> -> <primary> {<add op> <primary> #gen_infix} */
+    /* 8. <expression> -> (<expression>|<expression>|<expression>) #gen_conditional */
     expr_rec * left_operand, * right_operand;
     op_rec * op;
 
@@ -112,10 +115,28 @@ void expression(expr_rec *result)
         primary(right_operand);
         *left_operand = gen_infix(*left_operand, *op, *right_operand);
     }
+
+    if (!conditional_flag) conditional(left_operand);
+
     *result = *left_operand;
 }
 
-// TODO: update to include action symbols
+void conditional(expr_rec *result)
+{
+    expr_rec *e2, *e3;
+    if (next_token()==PIPE){
+        e2 = malloc(sizeof(expr_rec));
+        e3 = malloc(sizeof(expr_rec));
+        match(PIPE);
+        conditional_flag = 1;
+        expression(e2);
+        match(PIPE);
+        expression(e3);
+
+        *result = gen_conditional(*result, *e2, *e3);
+    }
+}
+
 void expr_list(void)
 {
     /* 7. <expr list> -> <expression> {, <expression>} */
@@ -152,6 +173,7 @@ void primary(expr_rec * expr)
         case LPAREN:
             /* 9. <primary> -> (<expression>) */
             match(LPAREN);
+            conditional_flag = 0;
             expression(expr);
             match(RPAREN);
             break;
