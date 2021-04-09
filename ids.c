@@ -2,6 +2,9 @@
 #include "headers/generator.h"
 #include "headers/ids.h"
 #include <stdio.h>
+#include <stdlib.h>
+
+//int max_temp = 0;
 
 bool is_var_name(string s)
 {
@@ -24,7 +27,8 @@ void check_id(string s)
 char *get_temp(char *type)
 {
     static int max_temp = 0;
-    static char tempname[MAX_ID_LEN];
+    char *tempname;
+    tempname = malloc(sizeof(char)*MAX_ID_LEN);
 
     max_temp++;
     sprintf(tempname, type, max_temp);
