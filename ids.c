@@ -1,23 +1,33 @@
 #include "headers/symbol_table.h"
 #include "headers/generator.h"
+#include "headers/ids.h"
 #include <stdio.h>
+
+bool is_var_name(string s)
+{
+    if (s[1]=='T') return true;
+    return false;
+}
+
 
 void check_id(string s)
 {
-    if (! lookup(s)){
+    if (! lookup(s) && is_var_name(s)){
         enter(s);
         generateData((string *) ".balign 4", (string *) "", (string *) "", (string *) "");
         generateData((string *) s, (string *) ": ", (string *) ".word ", (string *) "0");
+    } else if (!lookup(s)){
+        enter(s);
     }
 }
 
-char *get_temp(void)
+char *get_temp(char *type)
 {
     static int max_temp = 0;
     static char tempname[MAX_ID_LEN];
 
     max_temp++;
-    sprintf(tempname, "Temp%d", max_temp);
+    sprintf(tempname, type, max_temp);
     check_id(tempname);
     return tempname;
 }
