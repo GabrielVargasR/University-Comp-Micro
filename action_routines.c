@@ -114,6 +114,47 @@ expr_rec gen_conditional(expr_rec e1, expr_rec e2, expr_rec e3)
     expr_rec e_rec;
     e_rec.kind = TEMPEXPR;
     strcpy(e_rec.name, get_temp());
+
+    string tag1 = "_";
+    string tag2 = "_";
+    strcat(tag1, get_temp());
+    strcat(tag2, get_temp());
+
+    //prepares e1 for comparison
+    if (e1.kind == LITERALEXPR) {
+        generate((string *) "mov", (string *)"r0,", type_expr(extract_expr(&e1)), (string *)"");
+    } else {
+        generate((string *) "ldr", (string *) "r0,", type_expr(extract_expr(&e1)), (string *) "");
+        generate((string *) "ldr", (string *) "r0,", (string *) "[r0]", (string *) "");
+    }
+
+    //compares e1
+    generate((string *) "cmp", (string *) "r0,", (string *)"#0", (string *) "");
+    generate((string *) "beq", &tag1, (string *) "", (string *) "");
+
+    //assigns e2 if no branch (e1 != 0)
+    if (e2.kind == LITERALEXPR) {
+        generate((string *) "mov", (string *) "r0", type_expr(extract_expr(&e2)), (string *) "");
+    } else {
+        generate((string *) "ldr", (string *) "r0", type_expr(extract_expr(&e2)), (string *) "");
+        generate((string *) "ldr", (string *) "r0", (string *) "[r0]", (string *) "");
+    }
+    generate((string *) "b", &tag2, (string *) "", (string *) "");
+
+    //assigns e3 if beq branches (e1 == 0)
+    generate(&tag1, (string *) ":", (string *) "", (string *) "");
+    if (e3.kind == LITERALEXPR) {
+        generate((string *) "mov", (string *) "r0", type_expr(extract_expr(&e3)), (string *) "");
+    } else {
+        generate((string *) "ldr", (string *) "r0", type_expr(extract_expr(&e3)), (string *) "");
+        generate((string *) "ldr", (string *) "r0", (string *) "[r0]", (string *) "");
+    }
+    generate(&tag2, (string *) ":", (string *) "", (string *) "");
+
+
+    generate((string *) "ldr", (string *) "r9,", type_expr((string *)e_rec.name), (string *) "");
+    generate((string *) "str", (string *) "r0,", (string *) "[r9]",(string *) "");
+    generate((string *) "", (string *) "", (string *) "", (string *) "");
   
     return e_rec;
 }
